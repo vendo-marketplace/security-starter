@@ -14,20 +14,14 @@ import static com.vendo.core_lib.constants.Delimiters.COMMA_DELIMITER;
 
 public class DefaultUserHeaderExtractor implements UserHeaderExtractor {
 
-    private final HttpServletRequest request;
-
-    public DefaultUserHeaderExtractor(HttpServletRequest request) {
-        this.request = request;
-    }
-
     @Override
-    public UserStatus extractStatus() {
+    public UserStatus extractStatus(HttpServletRequest request) {
         String status = request.getHeader(UserHeader.STATUS.getHeader());
         return UserStatus.valueOf(status);
     }
 
     @Override
-    public Set<UserRole> extractRoles() {
+    public Set<UserRole> extractRoles(HttpServletRequest request) {
         String roles = request.getHeader(UserHeader.ROLES.getHeader());
 
         if (StringUtils.isEmpty(roles)) {

@@ -3,16 +3,10 @@ package com.vendo.security_starter.filter.header;
 import com.vendo.utils_lib.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 
-public class DefaultHeadersExtractor implements HeaderExtractor {
-
-    private final HttpServletRequest request;
-
-    public DefaultHeadersExtractor(HttpServletRequest request) {
-        this.request = request;
-    }
+public class DefaultHeaderExtractor implements HeaderExtractor {
 
     @Override
-    public String require(String header) throws IllegalArgumentException {
+    public String require(String header, HttpServletRequest request) throws IllegalArgumentException {
         String value = request.getHeader(header);
 
         if (StringUtils.isEmpty(value)) {
