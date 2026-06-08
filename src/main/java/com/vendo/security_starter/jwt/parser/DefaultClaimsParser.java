@@ -1,11 +1,10 @@
 package com.vendo.security_starter.jwt.parser;
 
+import com.vendo.security_lib.type.UserClaim;
 import com.vendo.security_starter.jwt.JwtService;
-import com.vendo.security_starter.type.UserClaim;
 import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.authentication.BadCredentialsException;
 
 import java.util.List;
 import java.util.Set;
@@ -23,7 +22,7 @@ public class DefaultClaimsParser implements TokenClaimsParser {
             return new TokenClaims(claims.getSubject(), roles, claims.getAudience());
         } catch (Exception e) {
             log.error(e.getMessage());
-            throw new BadCredentialsException("Invalid token.");
+            throw new IllegalStateException("Invalid token.");
         }
     }
 
@@ -41,6 +40,6 @@ public class DefaultClaimsParser implements TokenClaimsParser {
             }
         }
 
-        throw new BadCredentialsException("Invalid roles claim.");
+        throw new IllegalStateException("Invalid roles claim.");
     }
 }

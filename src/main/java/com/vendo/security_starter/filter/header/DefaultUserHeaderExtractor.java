@@ -1,6 +1,6 @@
 package com.vendo.security_starter.filter.header;
 
-import com.vendo.security_starter.type.UserHeader;
+import com.vendo.security_lib.type.UserHeader;
 import com.vendo.user_lib.type.UserRole;
 import com.vendo.user_lib.type.UserStatus;
 import com.vendo.utils_lib.StringUtils;

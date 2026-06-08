@@ -1,7 +1,7 @@
 package com.vendo.security_starter.filter.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vendo.security_starter.response.ExceptionResponse;
+import com.vendo.security_lib.exception.response.ExceptionResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
