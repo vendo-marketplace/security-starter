@@ -1,1 +1,2 @@
 com.vendo.security_starter.filter.config.FilterAutoConfiguration
+com.vendo.security_starter.jwt.config.JwtAutoConfiguration
