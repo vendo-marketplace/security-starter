@@ -1,6 +1,6 @@
 package com.vendo.security_starter.filter.header;
 
-import com.vendo.utils_lib.StringUtils;
+import com.vendo.core_lib.utils.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class DefaultHeaderExtractor implements HeaderExtractor {

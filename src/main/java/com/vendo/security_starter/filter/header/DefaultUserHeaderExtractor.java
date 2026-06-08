@@ -1,9 +1,9 @@
 package com.vendo.security_starter.filter.header;
 
+import com.vendo.core_lib.utils.StringUtils;
 import com.vendo.security_lib.type.UserHeader;
 import com.vendo.user_lib.type.UserRole;
 import com.vendo.user_lib.type.UserStatus;
-import com.vendo.utils_lib.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Arrays;
