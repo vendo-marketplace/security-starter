@@ -1,6 +1,6 @@
 package com.vendo.security_starter.jwt.parser;
 
-import com.vendo.security_lib.type.UserClaim;
+import com.vendo.security_lib.type.TokenClaim;
 import com.vendo.security_starter.jwt.JwtService;
 import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
@@ -17,8 +17,8 @@ public class DefaultClaimsParser implements TokenClaimsParser {
     @Override
     public TokenClaims extract(String token, String key) {
         try {
-            Claims claims = JwtService.extractAllClaims(token, key);
-            Set<String> roles = extractRoles(claims, UserClaim.ROLES.getClaim());
+            Claims claims = JwtService.extractAll(token, key);
+            Set<String> roles = extractRoles(claims, TokenClaim.ROLES.getClaim());
             return new TokenClaims(claims.getSubject(), roles, claims.getAudience());
         } catch (Exception e) {
             log.error(e.getMessage());

@@ -1,7 +1,7 @@
 package com.vendo.security_starter.filter.header;
 
 import com.vendo.core_lib.utils.StringUtils;
-import com.vendo.security_lib.type.UserHeader;
+import com.vendo.security_lib.type.AuthHeader;
 import com.vendo.user_lib.type.UserRole;
 import com.vendo.user_lib.type.UserStatus;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,13 +16,13 @@ public class DefaultUserHeaderExtractor implements UserHeaderExtractor {
 
     @Override
     public UserStatus extractStatus(HttpServletRequest request) {
-        String status = request.getHeader(UserHeader.STATUS.getHeader());
+        String status = request.getHeader(AuthHeader.STATUS.getHeader());
         return UserStatus.valueOf(status);
     }
 
     @Override
     public Set<UserRole> extractRoles(HttpServletRequest request) {
-        String roles = request.getHeader(UserHeader.ROLES.getHeader());
+        String roles = request.getHeader(AuthHeader.ROLES.getHeader());
 
         if (StringUtils.isEmpty(roles)) {
             return Set.of();
