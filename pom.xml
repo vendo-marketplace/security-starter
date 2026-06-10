@@ -12,7 +12,7 @@
 
     <groupId>io.github.vendo-marketplace-be</groupId>
     <artifactId>security-starter</artifactId>
-    <version>4.2.4</version>
+    <version>4.3.4</version>
     <packaging>jar</packaging>
 
     <name>security-lib</name>
@@ -49,6 +49,7 @@
         </dependency>
 
         <!--vendo libs-->
+
         <dependency>
             <groupId>io.github.vendo-marketplace-be</groupId>
             <artifactId>user-lib</artifactId>
@@ -57,13 +58,14 @@
         <dependency>
             <groupId>io.github.vendo-marketplace-be</groupId>
             <artifactId>core-lib</artifactId>
-            <version>4.7.3</version>
+            <version>4.7.4</version>
         </dependency>
         <dependency>
             <groupId>io.github.vendo-marketplace-be</groupId>
             <artifactId>security-lib</artifactId>
             <version>8.3.2</version>
         </dependency>
+
     </dependencies>
 
     <licenses>
