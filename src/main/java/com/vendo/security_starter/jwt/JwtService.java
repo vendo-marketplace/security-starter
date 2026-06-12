@@ -27,7 +27,7 @@ public class JwtService {
             payload.audience().forEach(aud -> jwtBuilder.audience().add(aud));
         }
 
-        long nowMillis = Instant.now().getEpochSecond();
+        long nowMillis = Instant.now().toEpochMilli();
         return jwtBuilder
                 .claims(payload.claims())
                 .subject(payload.subject())
