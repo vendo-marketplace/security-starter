@@ -8,6 +8,7 @@ import org.springframework.util.CollectionUtils;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.time.Instant;
 import java.util.Date;
 
 public class JwtService {
@@ -26,11 +27,12 @@ public class JwtService {
             payload.audience().forEach(aud -> jwtBuilder.audience().add(aud));
         }
 
+        long nowMillis = Instant.now().getEpochSecond();
         return jwtBuilder
                 .claims(payload.claims())
                 .subject(payload.subject())
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + payload.expiration()))
+                .issuedAt(new Date(nowMillis))
+                .expiration(new Date(nowMillis + payload.expiration()))
                 .signWith(getSignInKey(secret), SignatureAlgorithm.HS256)
                 .compact();
     }
