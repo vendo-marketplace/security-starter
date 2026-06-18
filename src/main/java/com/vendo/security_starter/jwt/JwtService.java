@@ -13,6 +13,8 @@ import java.util.Date;
 
 public class JwtService {
 
+    public static long SKEW_SECONDS = 60;
+
     public static Claims extractAll(String token, String secret) {
         return parseSignedClaims(token, secret).getPayload();
     }
@@ -27,12 +29,12 @@ public class JwtService {
             payload.audience().forEach(aud -> jwtBuilder.audience().add(aud));
         }
 
-        long nowMillis = Instant.now().toEpochMilli();
+        Instant now = Instant.now();
         return jwtBuilder
                 .claims(payload.claims())
                 .subject(payload.subject())
-                .issuedAt(new Date(nowMillis))
-                .expiration(new Date(nowMillis + payload.expiration()))
+                .issuedAt(Date.from(now))
+                .expiration(Date.from(now.plusMillis(payload.expiration())))
                 .signWith(getSignInKey(secret), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -40,6 +42,7 @@ public class JwtService {
     private static Jws<Claims> parseSignedClaims(String token, String secret) throws JwtException {
         return Jwts.parser()
                 .verifyWith((SecretKey) getSignInKey(secret))
+                .clockSkewSeconds(SKEW_SECONDS)
                 .build()
                 .parseSignedClaims(token);
     }
@@ -50,5 +53,10 @@ public class JwtService {
         } catch (NullPointerException e) {
             throw new IllegalArgumentException("Invalid token.");
         }
+    }
+
+    public static void setSkew(long seconds) {
+        if (seconds < 0) throw new IllegalArgumentException("Skew cannot be lower than 0.");
+        SKEW_SECONDS = seconds;
     }
 }
