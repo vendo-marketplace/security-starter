@@ -1,6 +1,7 @@
 package com.vendo.security_starter.jwt;
 
 import com.vendo.core_lib.utils.StringUtils;
+import com.vendo.security_lib.token.TokenPayload;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.util.CollectionUtils;
@@ -19,7 +20,7 @@ public class JwtService {
         return parseSignedClaims(token, secret).getPayload();
     }
 
-    public static String buildToken(JwtPayload payload, String secret) {
+    public static String buildToken(TokenPayload payload, String secret) {
         if (payload == null || StringUtils.isEmpty(payload.subject())) {
             throw new IllegalArgumentException("Invalid payload.");
         }
