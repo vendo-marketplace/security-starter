@@ -12,7 +12,7 @@
 
     <groupId>io.github.vendo-marketplace-be</groupId>
     <artifactId>security-starter</artifactId>
-    <version>4.7.7</version>
+    <version>4.8.7</version>
     <packaging>jar</packaging>
 
     <name>security-lib</name>
