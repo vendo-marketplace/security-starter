@@ -13,11 +13,18 @@ import java.util.Set;
 @ConfigurationProperties(prefix = "endpoints")
 public class PathProps {
 
+    /**
+     * All unauthenticated path groups. This config is shared by every service, so it holds the groups of all of them.
+     */
     private Map<PathGroup, Set<String>> unauthenticated = new EnumMap<>(PathGroup.class);
-    private Set<PathGroup> enabledGroups = EnumSet.of(PathGroup.GENERAL);
+
+    /**
+     * Groups from {@link #unauthenticated} that this service lets through without a token.
+     */
+    private Set<PathGroup> permittedGroups = EnumSet.of(PathGroup.GENERAL);
 
     public String[] allPaths() {
-        return paths(enabledGroups);
+        return paths(permittedGroups);
     }
 
     public String[] paths(PathGroup... groups) {
@@ -29,7 +36,6 @@ public class PathProps {
                 .map(unauthenticated::get)
                 .filter(Objects::nonNull)
                 .flatMap(Collection::stream)
-                .distinct()
                 .toArray(String[]::new);
     }
 
@@ -41,12 +47,12 @@ public class PathProps {
         this.unauthenticated = unauthenticated;
     }
 
-    public Set<PathGroup> getEnabledGroups() {
-        return enabledGroups;
+    public Set<PathGroup> getPermittedGroups() {
+        return permittedGroups;
     }
 
-    public void setEnabledGroups(Set<PathGroup> enabledGroups) {
-        this.enabledGroups = enabledGroups;
+    public void setPermittedGroups(Set<PathGroup> permittedGroups) {
+        this.permittedGroups = permittedGroups;
     }
 
 }
