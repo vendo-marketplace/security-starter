@@ -19,12 +19,15 @@ public class PathProps {
     private Map<PathGroup, Set<String>> unauthenticated = new EnumMap<>(PathGroup.class);
 
     /**
-     * Groups from {@link #unauthenticated} that this service lets through without a token.
+     * Extra groups from {@link #unauthenticated} that this service lets through without a token.
+     * {@link PathGroup#GENERAL} is always permitted, so it isn't listed here.
      */
-    private Set<PathGroup> permittedGroups = EnumSet.of(PathGroup.GENERAL);
+    private Set<PathGroup> permittedGroups = EnumSet.noneOf(PathGroup.class);
 
     public String[] allPaths() {
-        return paths(permittedGroups);
+        Set<PathGroup> groups = EnumSet.of(PathGroup.GENERAL);
+        groups.addAll(permittedGroups);
+        return paths(groups);
     }
 
     public String[] paths(PathGroup... groups) {

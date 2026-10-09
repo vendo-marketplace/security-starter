@@ -27,7 +27,7 @@ class PathPropsTest {
     @Test
     void allPaths_shouldReturnPathsOfPermittedGroups() {
         contextRunner
-                .withPropertyValues("endpoints.permitted-groups=general,internal")
+                .withPropertyValues("endpoints.permitted-groups=internal")
                 .run(context -> assertThat(context.getBean(PathProps.class).allPaths())
                         .containsExactlyInAnyOrder("/actuator/health", "/swagger-ui/**", "/internal/**"));
     }
@@ -35,15 +35,23 @@ class PathPropsTest {
     @Test
     void allPaths_shouldSkipPermittedGroup_whenItHasNoConfiguredPaths() {
         contextRunner
-                .withPropertyValues("endpoints.permitted-groups=general,auth")
+                .withPropertyValues("endpoints.permitted-groups=auth")
                 .run(context -> assertThat(context.getBean(PathProps.class).allPaths())
                         .containsExactlyInAnyOrder("/actuator/health", "/swagger-ui/**"));
     }
 
     @Test
+    void allPaths_shouldNotDuplicateGeneralPaths_whenGeneralAlsoPermitted() {
+        contextRunner
+                .withPropertyValues("endpoints.permitted-groups=general,internal")
+                .run(context -> assertThat(context.getBean(PathProps.class).allPaths())
+                        .containsExactlyInAnyOrder("/actuator/health", "/swagger-ui/**", "/internal/**"));
+    }
+
+    @Test
     void paths_shouldReturnOnlyRequestedGroups() {
         contextRunner
-                .withPropertyValues("endpoints.permitted-groups=general,internal,product")
+                .withPropertyValues("endpoints.permitted-groups=internal,product")
                 .run(context -> assertThat(context.getBean(PathProps.class).paths(PathGroup.PRODUCT))
                         .containsExactly("/categories/tree"));
     }
