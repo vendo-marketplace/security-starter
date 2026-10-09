@@ -57,6 +57,20 @@ class PathPropsTest {
     }
 
     @Test
+    void shouldBindLowercaseGroupNames() {
+        contextRunner
+                .withPropertyValues("endpoints.permitted-groups=internal,product")
+                .run(context -> {
+                    PathProps props = context.getBean(PathProps.class);
+
+                    assertThat(props.getUnauthenticated())
+                            .containsOnlyKeys(PathGroup.GENERAL, PathGroup.INTERNAL, PathGroup.PRODUCT);
+                    assertThat(props.getPermittedGroups())
+                            .containsExactlyInAnyOrder(PathGroup.INTERNAL, PathGroup.PRODUCT);
+                });
+    }
+
+    @Test
     void allPaths_shouldReturnEmpty_whenNothingConfigured() {
         new ApplicationContextRunner()
                 .withConfiguration(AutoConfigurations.of(PathAutoConfiguration.class))
